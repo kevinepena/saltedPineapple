@@ -28,8 +28,7 @@ server.express.use(async (req, res, next) => {
     next();
 })
 
-// middleware that po
-
+// starting server
 server.start(
     {
         cors: {
