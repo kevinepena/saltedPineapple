@@ -12,15 +12,17 @@ const CREATE_ITEM_MUTATION = gql`
         $title: String!
         $description: String!
         $price: Int!
-        $image: String
-        $largeImage: String
+        $images: [String]!
+        $largeImages: [String]!
+        $category: [String]!
     ) {
         createItem(
             title: $title
             description: $description
-            image: $image
-            largeImage: $largeImage
+            images: $images
+            largeImages: $largeImages
             price: $price
+            category: $category
         ) {
             id
         }
@@ -32,8 +34,9 @@ class CreateItem extends Component {
     state = {
         title: '',
         description: '',
-        image: '',
-        largeImage: '',
+        images: [],
+        largeImages: [],
+        category: []
     }
 
     handleChange = (e) => {
@@ -44,31 +47,64 @@ class CreateItem extends Component {
     }
 
     uploadFile = async e => {
-        const files = e.target.files;
-        const data = new FormData();
-        data.append('file', files[0]);
-        data.append('upload_preset', 'sickfits');
 
-        const res = await fetch
-            ('https://api.cloudinary.com/v1_1/kevinpena/image/upload', {
-                method: 'POST',
-                body: data
-            });
+        let files = e.target.files;
+        let filesArr = [];
 
-        const file = await res.json();
-        this.setState({
-            image: file.secure_url,
-            largeImage: file.eager[0].secure_url
+        for (let i = 0; i < e.target.files.length; i++) {
+            filesArr.push(files[i])
+        }
+
+        filesArr.forEach(async file => {
+            const data = new FormData();
+            data.append('file', file);
+            data.append('upload_preset', 'saltedpineapple');
+
+            const res = await fetch
+                ('https://api.cloudinary.com/v1_1/kevinpena/image/upload', {
+                    method: 'POST',
+                    body: data
+                });
+
+            const fileJ = await res.json();
+            this.setState({
+                images: [...this.state.images, fileJ.secure_url],
+                largeImages: [...this.state.largeImages, fileJ.eager[0].secure_url]
+            })
         })
     }
 
     render() {
+
+        let empty = [];
+
+        if (this.state.images.length > 0) {
+            for (let i = 0; i < this.state.images.length; i++) {
+                empty.push(<img key={i} style={{ width: '200px' }} src={this.state.images[i]} />)
+            }
+        }
+
         return (
             <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
                 {(createItem, { loading, error }) => (
                     <Form data-test="form" onSubmit={async e => {
                         e.preventDefault();
-                        const res = await createItem();
+                        let words = await this.state.category.split(',');
+                        words = await words.slice();
+                        words = await words.map(word => word.toLowerCase());
+                        words = await words.map(word => word.trim());
+                        // console.log(this.state)
+                        const res = await createItem({
+                            variables: {
+                                title: this.state.title,
+                                description: this.state.description,
+                                images: this.state.images,
+                                largeImages: this.state.largeImages,
+                                category: words
+                            }
+                        });
+
+                        // const res = await createItem();
                         Router.push({
                             pathname: '/item',
                             query: { id: res.data.createItem.id }
@@ -84,10 +120,11 @@ class CreateItem extends Component {
                                     name="file"
                                     placeholder="Upload an image"
                                     onChange={this.uploadFile}
+                                    multiple
                                     required />
-                                {this.state.image && <img style={{width: '200px'}} src={this.state.image} alt="Upload Preview" />}
+                                {this.state.image && <img style={{ width: '200px' }} src={this.state.image} alt="Upload Preview" />}
                             </label>
-
+                            {empty[0] && empty}
                             <label htmlFor="title">
                                 Title
                     <input
@@ -119,6 +156,17 @@ class CreateItem extends Component {
                                     value={this.state.description}
                                     onChange={this.handleChange}
                                     required />
+                            </label>
+                            <label htmlFor="category">
+                                Categories
+                    <input
+                                    type="text"
+                                    id="category"
+                                    name="category"
+                                    placeholder="Split categories by comma"
+                                    value={this.state.category}
+                                    onChange={this.handleChange}
+                                />
                             </label>
                             <button type="submit">Submit</button>
                         </fieldset>

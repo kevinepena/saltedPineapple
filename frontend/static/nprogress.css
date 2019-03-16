@@ -4,7 +4,16 @@
 }
 
 #nprogress .bar {
-  background: red;
+  /* background: red;
+  grey: '#797C80',
+  mummy: '#808F85',
+  yellow: '#F5BB00',
+  mint: '#BCD8C1',
+  green: '#91C499',
+  blue: '#7FB7BE',
+  skyblue: '#8EDCE6',
+  egg: '#F2E9DC', */
+  background: linear-gradient(to right, #BCD8C1, #4E6E9D); 
   position: fixed;
   z-index: 1031;
   top: 0;
@@ -21,7 +30,7 @@
   right: 0px;
   width: 100px;
   height: 100%;
-  box-shadow: 0 0 10px red, 0 0 5px red;
+  box-shadow: 0 0 10px #3A3A3A, 0 0 5px #3A3A3A;
   opacity: 1.0;
 
   -webkit-transform: rotate(3deg) translate(0px, -4px);

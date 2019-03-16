@@ -9,8 +9,9 @@ const NavStyles = styled.ul`
   a,
   button {
     /* + */
-    font-family: 'radnika_next';
+    font-family: 'raleway';
     color: #393939;
+    position: relative;
     /* + */
     padding: 1rem 3rem;
     display: flex;
@@ -27,19 +28,30 @@ const NavStyles = styled.ul`
       padding: 0 10px;
     }
     &:before {
-      content: '';
+      /* content: '';
       width: 2px;
-      background: ${props => props.theme.lightgrey};
+      background: ${props => props.theme.white};
       height: 100%;
       left: 0;
       position: absolute;
       transform: skew(-20deg);
       top: 0;
       bottom: 0;
+      position: absolute; */
+    position: absolute;
+    overflow: hidden;
+    /* padding: 10px 0; */
+    /* max-width: 0; */
+    /* border-bottom: 2px solid #fff; */
+    color: ${props => props.theme.white};
+    content: attr(data-hover);
+    -webkit-transition: max-width 0.5s;
+    -moz-transition: max-width 0.5s;
+    transition: max-width 0.5s, color 0.2s;
     }
     &:after {
-      height: 2px;
-      background: red;
+      /* height: 2px;
+      background: ${props => props.theme.blue};
       content: '';
       width: 0;
       position: absolute;
@@ -47,23 +59,27 @@ const NavStyles = styled.ul`
       transition: width 0.4s;
       transition-timing-function: cubic-bezier(1, -0.65, 0, 2.31);
       left: 50%;
-      margin-top: 2rem;
+      margin-top: 2rem; */
     }
     &:hover,
     &:focus {
       outline: none;
-      &:after {
-        width: calc(100% - 60px);
+      &:before {
+        /* max-width: 100%; */
+        color: ${props => props.theme.blue};
       }
-    @media (max-width: 700px) {
+      &:after {
+        /* width: calc(100% - 60px); */
+      }
+    /* @media (max-width: 700px) {
         width: calc(100% - 10px);
-    }
+    } */
     }
   }
   @media (max-width: 1300px) {
-    border-top: 1px solid ${props => props.theme.lightgrey};
-    width: 100%;
-    justify-content: center;
+    /* border-top: 1px solid ${props => props.theme.lightgrey}; */
+    /* width: 100%; */
+    justify-content: right;
     font-size: 1.5rem;
   }
 `;

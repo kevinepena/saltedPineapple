@@ -24,7 +24,7 @@ const SINGLE_ORDER_QUERY = gql`
                 title
                 description
                 price
-                image
+                images
                 quantity
             }
         }

@@ -4,7 +4,7 @@ type SuccessMessage {
 }
 
 type Mutation {
-    createItem(title: String, description:String, price: Int, image: String, largeImage: String): Item!
+    createItem(title: String, description:String, price: Int, images: [String]!, largeImages: [String]!, category: [String]): Item!
     updateItem(id: ID!, title: String, description: String, price: Int): Item!
     deleteItem(id: ID!): Item
     signup(email: String!, password: String!, name: String!): User!
@@ -16,6 +16,8 @@ type Mutation {
     addToCart(id: ID!): CartItem
     removeFromCart(id: ID!): CartItem
     createOrder(token: String!): Order!
+    createCategory(name: String): Category!
+    updateCategory(id: ID!): Category!
 }
 
 type Query {
@@ -23,6 +25,8 @@ type Query {
     item(where: ItemWhereUniqueInput!): Item
     itemsConnection(where: ItemWhereInput): ItemConnection!
     me: User
+    categories(where: CategoryWhereInput, first: Int, skip: Int, orderBy: CategoryOrderByInput ): [Category]!
+    category(where: CategoryWhereUniqueInput!): Category
     users: [User]!
     order(id: ID!): Order!
     orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int):[Order]!

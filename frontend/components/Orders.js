@@ -20,7 +20,7 @@ const ALL_ORDERS_QUERY = gql`
                 price
                 description
                 quantity
-                image
+                images
             }
             user {
                 id

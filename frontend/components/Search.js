@@ -15,7 +15,7 @@ const SEARCH_ITEMS_QUERY = gql`
             ]
         }) {
             id
-            image
+            images
             title
             description
         }

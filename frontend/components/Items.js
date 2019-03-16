@@ -13,8 +13,12 @@ const ALL_ITEMS_QUERY = gql`
             title
             price
             description
-            image
-            largeImage
+            images
+            largeImages
+            categories {
+                id
+                name
+            }
         }
     }
 `;
@@ -26,9 +30,15 @@ const Center = styled.div`
 const ItemsList = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 60px;
     max-width: ${props => props.theme.maxWidth};
     margin: 0 auto;
+    @media(max-width: 500px) {
+    grid-template-columns: 1fr;
+    margin: 15px auto 0 auto;
+
+    }
 `;
 
 class Items extends Component {
@@ -45,7 +55,7 @@ class Items extends Component {
                         if (loading) return "Loading...";
                         if (error) return `Error: ${error.message}`;
                         return <ItemsList>
-                            {data.items.map(item => <Item item={item} key={item.id} />)}
+                            {data.items.map((item, i) => <div key={i}><Item item={item} key={item.id} /></div>)}
                         </ItemsList>
                     }}
                 </Query>

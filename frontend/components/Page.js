@@ -4,9 +4,18 @@ import Header from '../components/Header';
 import Meta from '../components/Meta';
 
 const theme = {
-    red: '#FF0000',
+    red: '#DAD7CD',
+    // red: '#FF0000',
     black: '#393939',
-    grey: '#3A3A3A',
+    darkGrey: '#3A3A3A',
+    grey: '#797C80',
+    mummy: '#808F85',
+    yellow: '#F5BB00',
+    mint: '#BCD8C1',
+    green: '#91C499',
+    blue: '#7FB7BE',
+    skyblue: '#8EDCE6',
+    egg: '#F2E9DC',
     lightgrey: '#E1E1E1',
     offWhite: '#EDEDED',
     maxWidth: '1000px',
@@ -32,9 +41,26 @@ injectGlobal`
         font-weight: normal;
         font-style: normal;
     }
+    @font-face {
+        font-family: 'hipster';
+        src: url('/static/sweethipster.ttf')
+        format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'raleway';
+        src: url('/static/raleway-regular.ttf')
+        format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
     html {
         box-sizing: border-box;
         font-size: 10px;
+    }
+    * {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
     *, *:before, *:after {
             box-sizing: inherit;

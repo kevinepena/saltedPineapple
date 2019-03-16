@@ -7,6 +7,12 @@ enum Permission {
     PERMISSIONUPDATE
 }
 
+type Category {
+    id: ID! @unique
+    name: String! @unique
+    item: [Item!]!
+}
+
 type User {
     id: ID! @unique
     name: String!
@@ -22,12 +28,13 @@ type Item {
     id: ID! @unique
     title: String!
     description: String!
-    image: String!
-    largeImage: String
+    images: [String!]!
+    largeImages: [String!]!
     price: Int!
     createdAt: DateTime!
     updatedAt: DateTime!
     user: User!
+    categories: [Category]!
 }
 
 type CartItem {
@@ -41,8 +48,8 @@ type OrderItem {
     id: ID! @unique
     title: String!
     description: String!
-    image: String!
-    largeImage: String!
+    images: [String!]!
+    largeImages: [String!]!
     price: Int!
     quantity: Int! @default(value: 1)
     user: User

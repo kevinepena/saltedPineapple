@@ -25,22 +25,22 @@ const Nav = () => (
             // <div>
             <NavStyles className="nav" data-test='nav'>
                 <Link href='/items'>
-                    <a data-hover="Shop">Shop</a>
+                    <a>Shop</a>
                 </Link>
 
                 {me && (
                     <>
                         <Link href='/sell'>
-                            <a data-hover="Sell">Sell</a>
+                            <a>Sell</a>
                         </Link>
                         <Link href='/orders'>
-                            <a data-hover="Orders">Orders</a>
+                            <a>Orders</a>
                         </Link>
                         <Link href='/me'>
-                            <a data-hover="Account">Account</a>
+                            <a>Account</a>
                         </Link>
                         {
-                            hasPermission(me, ['ADMIN']) ? <Link href="/permissions"><a data-hover="Users">Users</a></Link> : ''
+                            hasPermission(me, ['ADMIN']) ? <Link href="/permissions"><a>Users</a></Link> : ''
                         }
                         <SignOut />
                         <Mutation mutation={TOGGLE_CART_MUTATION}>

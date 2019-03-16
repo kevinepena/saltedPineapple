@@ -13,6 +13,12 @@ const Mutations = {
         if (!ctx.request.userId) {
             throw new Error('Must be logged in!')
         }
+        console.log(args);
+        const argsCopy = { ...args };
+        delete argsCopy.category;
+        delete argsCopy.images;
+        delete argsCopy.largeImages;
+
         const item = await ctx.db.mutation.createItem({
             data: {
                 // This is how to create relationship between item with a userId
@@ -21,9 +27,42 @@ const Mutations = {
                         id: ctx.request.userId
                     }
                 },
-                ...args
+                images: { set: [...args.images] },
+                largeImages: { set: [...args.images] },
+                ...argsCopy
             }
         }, info);
+
+        const queryCategory = await args.category.forEach(async cat => {
+            const where = { name: cat };
+            let check = await ctx.db.query.category({ where }, `{ id name item { id } }`);
+            if (check === null) {
+                const create = await ctx.db.mutation.createCategory({
+                    data: {
+                        name: cat,
+                        item: {
+                            connect: {
+                                id: item.id
+                            }
+                        }
+                    }, info
+                });
+            } else {
+                let update = await ctx.db.mutation.updateCategory({
+                    data: {
+                        item: {
+                            connect: {
+                                id: item.id
+                            }
+                        }
+                    },
+                    where: {
+                        id: check.id
+                    },
+                    info
+                });
+            }
+        });
 
         return item;
     },
@@ -259,7 +298,7 @@ const Mutations = {
             cart {
                 id
                 quantity
-                item { title price id description image largeImage }
+                item { title price id description images largeImages }
             } 
         }`);
         // recalculate total for the price
