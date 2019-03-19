@@ -36,8 +36,19 @@ const Logo = styled.div`
         color: white;
         text-transform: uppercase;
         text-decoration: none;
-        span {
+        :hover {
+        .inside {
+            animation: swing .5s;
+        }
+        }
+        .saltedpineapple span {
             font-size: 1.3em;
+
+        }
+
+        > div {
+            /* margin-top: 10px; */
+            font-size: 1.1em;
         }
     }
     @media (max-width: 1300px) {
@@ -79,12 +90,101 @@ const StyledHeader = styled.header`
         border-bottom: 1px solid ${props => props.theme.lightgrey}
     }
     .apple {
-        width: 70px;
+        width: 60px;
         position: absolute;
         top: 3px;
-        left: -20px;
+        left: -18px;
         z-index: -1;
     }
+
+    .sht {
+        transform: translateY(-105%);
+    }
+
+    .sp {
+        /* visibility: hidden; */
+        &:before {
+            content: '';
+            top: 0;
+            /* font-family: 'radnika_next'; */
+            font-size: 15px;
+            position: absolute;
+            overflow: hidden;
+            /* padding: 10px 0; */
+            /* max-width: 0; */
+            /* border-bottom: 2px solid #fff; */
+            color: ${props => props.theme.grey};
+            -webkit-transition: max-width 0.5s;
+            -moz-transition: max-width 0.5s;
+            transition: max-width 0.5s, color 0.2s;
+        }
+        &:after {
+            content: '';
+            top: 15px;
+            /* font-family: 'raleway'; */
+            font-size: 15px;
+            position: absolute;
+            overflow: hidden;
+            /* padding: 10px 0; */
+            /* max-width: 0; */
+            /* border-bottom: 2px solid #fff; */
+            color: ${props => props.theme.grey};
+            -webkit-transition: max-width 0.5s;
+            -moz-transition: max-width 0.5s;
+            transition: max-width 0.5s, color 0.2s;
+        }
+    }
+
+    .saltedpineapple {
+        font-family: 'raleway';
+        font-size: 20px;
+        position: absolute;
+        top: 15px;
+        left: 0;
+        
+        span:nth-of-type(1) {
+            color: #BEDDA5;
+            color: ${props => props.theme.blue};
+        }
+        
+        span:nth-of-type(2) {
+            color: #D6A550;
+            color: ${props => props.theme.black};
+        }
+    }
+
+    .inside {
+        position: absolute;
+        width: 40px;
+        z-index: -1;
+    }
+
+    @keyframes swing {
+  20% {
+    -webkit-transform: rotate3d(0, 0, 1, 15deg);
+    transform: rotate3d(0, 0, 1, 15deg);
+  }
+
+  40% {
+    -webkit-transform: rotate3d(0, 0, 1, -10deg);
+    transform: rotate3d(0, 0, 1, -10deg);
+  }
+
+  60% {
+    -webkit-transform: rotate3d(0, 0, 1, 5deg);
+    transform: rotate3d(0, 0, 1, 5deg);
+  }
+
+  80% {
+    -webkit-transform: rotate3d(0, 0, 1, -5deg);
+    transform: rotate3d(0, 0, 1, -5deg);
+  }
+
+  to {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+}
 `
 
 
@@ -114,21 +214,27 @@ class Header extends React.Component {
         }
     }
 
-    scroll = (e) => {
-        if (e.path[1].scrollY > 75) {
-            this.setState({ scroll: true })
-        } else {
-            this.setState({ scroll: false })
-        }
-    }
 
     mobile = (open = false) => {
         this.setState({ open: open });
     }
 
-
-
     render() {
+
+        let didScroll;
+        let delta;
+        let lastScrollTop;
+
+        const scroll = (e) => {
+            console.log(e);
+            if (e.path[1].scrollY > 75) {
+                this.setState({ scroll: true })
+            } else {
+                this.setState({ scroll: false })
+            }
+        }
+
+
         return (
             <StyledHeader>
                 <div className='bar'>
@@ -136,10 +242,17 @@ class Header extends React.Component {
                         <Link href="/">
                             <a>
                                 {/* <div className="wrapper"> */}
-                                <span>
-                                    SP
-                        </span>
-                                <img className="apple" src='../static/pineapple.svg' />
+                                <div className="sht">
+                                    <span className="sp">
+                                        SP
+                                </span>
+                                </div>
+                                <img className="sht apple" src='../static/pineapple.svg' />
+                                <span className="saltedpineapple">
+                                    <span>Salted</span>
+                                    <img className="inside" src='../static/pineapple.svg' />
+                                    <span>Pineapple</span>
+                                </span>
                                 {/* </div> */}
                             </a>
                         </Link>

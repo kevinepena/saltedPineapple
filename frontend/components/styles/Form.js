@@ -39,7 +39,7 @@ const Form = styled.form`
   button,
   input[type='submit'] {
     width: auto;
-    background: red;
+    background: #797C80;
     color: white;
     border: 0;
     font-size: 2rem;
@@ -57,7 +57,17 @@ const Form = styled.form`
       height: 10px;
       content: '';
       display: block;
-      background-image: linear-gradient(to right, #ff3019 0%, #e2b04a 50%, #ff3019 100%);
+        /* background: red;
+  grey: '#797C80',
+  mummy: '#808F85',
+  yellow: '#F5BB00',
+  mint: '#BCD8C1',
+  green: '#91C499',
+  blue: '#7FB7BE',
+  skyblue: '#8EDCE6',
+  egg: '#F2E9DC', */
+  background: linear-gradient(to right, #DAD7CD, #808F85, #DAD7CD ); 
+      /* background-image: linear-gradient(to right, #ff3019 0%, #e2b04a 50%, #ff3019 100%); */
     }
     &[aria-busy='true']::before {
       background-size: 50% auto;

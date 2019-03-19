@@ -83,7 +83,7 @@ class AutoComplete extends React.Component {
                                             key={item.id}
                                             highlighted={index === highlightedIndex}
                                         >
-                                            <img width="50" src={item.image} alt={item.title} />
+                                            <img width="50" src={item.images[0]} alt={item.title} />
                                             {item.title}
                                             <br />
                                             <em>{item.description}</em>

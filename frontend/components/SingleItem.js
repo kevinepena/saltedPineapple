@@ -123,13 +123,6 @@ class SingleItem extends Component {
                     if (!data.item) return <p>No item found for {this.props.id}</p>
                     const item = data.item;
 
-                    let empty = [];
-
-                    if (item.images.length > 0) {
-                        for (let i = 0; i < item.images.length; i++) {
-                            empty.push(<img key={i} style={{ width: '200px' }} src={item.images[i]} />)
-                        }
-                    }
 
                     return <SingleItemStyles>
                         <Head>

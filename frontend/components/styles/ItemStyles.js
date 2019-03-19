@@ -7,10 +7,13 @@ const Item = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  transition: all 1s;
   img {
+    /* flex-basis: 33%; */
     width: 100%;
-    height: 400px;
+    overflow: scroll;
     object-fit: fill;
+    max-height: 100%;
   }
   p {
     font-size: 12px;

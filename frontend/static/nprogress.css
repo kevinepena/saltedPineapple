@@ -13,7 +13,9 @@
   blue: '#7FB7BE',
   skyblue: '#8EDCE6',
   egg: '#F2E9DC', */
-  background: linear-gradient(to right, #BCD8C1, #4E6E9D); 
+  /* background: linear-gradient(to right,#7FB7BE, #DAD7CD );  */
+  background: #7FB7BE; 
+  /* background: linear-gradient(to right, #DAD7CD, #7FB7BE );  */
   position: fixed;
   z-index: 1031;
   top: 0;
@@ -53,8 +55,8 @@
   box-sizing: border-box;
 
   border: solid 2px transparent;
-  border-top-color: red;
-  border-left-color: red;
+  border-top-color: #DAD7CD;
+  border-left-color: #DAD7CD;
   border-radius: 50%;
 
   -webkit-animation: nprogress-spinner 400ms linear infinite;

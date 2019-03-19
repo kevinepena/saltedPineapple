@@ -236,7 +236,7 @@ class CarouselComp extends Component {
                     pauseOnHover={true}
                     fade={true}
                     wrap={true}
-                    interval={5000}
+                    interval={50000}
 
                 >
 

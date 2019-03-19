@@ -6,7 +6,7 @@ const Meta = () => (
         <meta charSet="utf-8" />
         <link rel="shortcut icon" href="/static/favicon.ico" />
         <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
-        <title>Sick Fits</title>
+        <title>Salted Pineapple</title>
     </Head>
 )
 

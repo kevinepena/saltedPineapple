@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Mutation } from 'react-apollo';
 import { TOGGLE_CART_MUTATION } from './Cart';
-import NavStyles from './styles/NavStyles';
+import NavStyles from './styles/MobileNavStyles';
 import User from './User';
 import SignOut from './Signout';
 import CartCount from './CartCount';

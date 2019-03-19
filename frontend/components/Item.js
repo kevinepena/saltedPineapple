@@ -34,7 +34,6 @@ export default class Items extends Component {
         let arr = [];
 
         categories[0] && categories.forEach(cat => {
-            console.log(cat)
             arr.push(<Link key={cat.id} href={{ pathname: '/category', query: { name: cat.name } }}><a>{cat.name}</a></Link>)
         })
 
