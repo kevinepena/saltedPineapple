@@ -5,6 +5,7 @@ const DropDown = styled.div`
   width: 100%;
   z-index: 2;
   border: 1px solid ${props => props.theme.lightgrey};
+  margin-top: 80px;
 `;
 
 const DropDownItem = styled.div`
@@ -14,25 +15,33 @@ const DropDownItem = styled.div`
   transition: all 0.2s;
   ${props => (props.highlighted ? 'padding-left: 2rem;' : null)};
   display: flex;
+  /* flex-direction: column; */
   align-items: center;
   border-left: 10px solid ${props => (props.highlighted ? props.theme.lightgrey : 'white')};
   img {
     margin-right: 10px;
   }
+
+  em {
+    margin-left: 10px
+  }
 `;
 
 const glow = keyframes`
   from {
-    box-shadow: 0 0 0px yellow;
+    box-shadow: 0 0 0px ${props => props.theme.blue};
   }
 
   to {
-    box-shadow: 0 0 10px 1px yellow;
+    box-shadow: 0 0 10px 1px ${props => props.theme.blue};
   }
 `;
 
 const SearchStyles = styled.div`
   position: relative;
+  > div {
+  display: inherit;
+  }
   input {
     width: 100%;
     padding: 10px;

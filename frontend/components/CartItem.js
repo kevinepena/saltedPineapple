@@ -22,7 +22,7 @@ const CartItem = ({ cartItem }) => {
     if (!cartItem.item) return <p>This Item Has Been Removed</p>
     return (
         <CartItemStyles>
-            <img width='100' src={cartItem.item.image} alt={cartItem.item.title} />
+            <img width='100' src={cartItem.item.images[0]} alt={cartItem.item.title} />
             <div className="cart-item-details">
                 <h3>{cartItem.item.title}</h3>
                 <p>{formatMoney(cartItem.item.price)}

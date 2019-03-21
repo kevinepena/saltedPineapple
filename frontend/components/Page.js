@@ -5,7 +5,6 @@ import Meta from '../components/Meta';
 
 const theme = {
     red: '#DAD7CD',
-    // red: '#FF0000',
     black: '#393939',
     darkGrey: '#3A3A3A',
     grey: '#797C80',
@@ -61,6 +60,9 @@ injectGlobal`
     }
     * {
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        :focus {
+            outline: none;
+        }
     }
     *, *:before, *:after {
             box-sizing: inherit;
@@ -80,9 +82,38 @@ injectGlobal`
 `
 
 class Page extends Component {
+
+    state = {
+        scroll: false,
+        mobile: true,
+    }
+
+    componentDidMount() {
+        window.addEventListener('scroll', this.scroll);
+        window.addEventListener('resize', this.resize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.scroll);
+        window.removeEventListener('resize', this.resize);
+    }
+
+    resize = (e) => {
+        if (e.path[0].screen.availWidth < 800) {
+            this.setState({ mobile: true })
+        } else {
+            this.setState({ mobile: false })
+        }
+    }
+
+    mobile = (open = false) => {
+        this.setState({ open: open });
+    }
+
     render() {
+        
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider mobile={this.state.mobile} theme={theme}>
                 <StyledPage>
                     <Meta />
                     <Header />

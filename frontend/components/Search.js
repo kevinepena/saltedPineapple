@@ -53,7 +53,7 @@ class AutoComplete extends React.Component {
     render() {
         resetIdCounter();
         return (
-            <SearchStyles>
+            <SearchStyles search={this.props.search} className="searchbar" >
                 <Downshift onChange={routeToItem} itemToString={item => (item === null ? '' : item.title)}>
                     {({ getInputProps, getItemProps, isOpen, inputValue, highlightedIndex }) => (
                         <div>
@@ -86,7 +86,7 @@ class AutoComplete extends React.Component {
                                             <img width="50" src={item.images[0]} alt={item.title} />
                                             {item.title}
                                             <br />
-                                            <em>{item.description}</em>
+                                            <em> {item.description}</em>
                                         </DropDownItem>
                                     ))}
                                     {!this.state.items.length && !this.state.loading && <DropDownItem>Nothing Found for {inputValue}</DropDownItem>}

@@ -5,6 +5,7 @@ import Title from './styles/Title';
 import ItemStyles from './styles/ItemStyles';
 import PriceTag from './styles/PriceTag';
 import Item from './styles/ItemStyles';
+import AddLocalCart from './AddLocalCart';
 import CarouselComp from './Carousel';
 import formatMoney from '../lib/formatMoney';
 import DeleteItem from './DeleteItem';
@@ -67,6 +68,12 @@ export default class Items extends Component {
                                         <a>Edit ✏️</a>
                                     </Link>
                                     <DeleteItem id={item.id}>Delete This Item</DeleteItem>
+                                </>
+                            )}
+
+                            {!me && (
+                                <>
+                                    <AddLocalCart id={item.id}></AddLocalCart>
                                 </>
                             )}
 

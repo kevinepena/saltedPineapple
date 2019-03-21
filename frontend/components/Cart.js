@@ -12,9 +12,15 @@ import calcTotalPrice from '../lib/calcTotalPrice';
 import formatMoney from '../lib/formatMoney';
 import TakeMyMoney from './TakeMyMoney';
 
+const LOCAL_CART_QUERY = gql`
+    query {
+        cartOpen @client,
+    }
+`;
+
 const LOCAL_STATE_QUERY = gql`
     query {
-        cartOpen @client
+        cart @client
     }
 `;
 
@@ -27,16 +33,42 @@ const TOGGLE_CART_MUTATION = gql`
 const Composed = adopt({
     user: ({ render }) => <User>{render}</User>,
     toggleCart: ({ render }) => <Mutation mutation={TOGGLE_CART_MUTATION}>{render}</Mutation>,
-    localState: ({ render }) => <Query query={LOCAL_STATE_QUERY}>{render}</Query>
+    localCart: ({ render }) => <Query query={LOCAL_CART_QUERY}>{render}</Query>,
+    localState: ({ render }) => <Query query={LOCAL_STATE_QUERY}>{render}</Query>,
 });
 
-const Cart = props => (
+
+const Cart = () => (
     <Composed>
-        {({ user, toggleCart, localState }) => {
+        {({ user, toggleCart, localCart, localState }) => {
             const me = user.data.me;
-            if (!me) return null;
+
+            if (!me) {
+                console.log(localState)
+                const { data } = localState;
+                console.log(data)
+                return (
+                    <CartStyles open={localCart.data.cartOpen}>
+                        <header>
+                            <CloseButton title="close" onClick={toggleCart}>&times;</CloseButton>
+                            {/* <Supreme>{me.name}'s Cart</Supreme> */}
+                            <p>You have {data.cart.length} item{data.cart.length === 1 ? '' : 's'} in your cart!</p>
+                        </header>
+                        <ul>
+                            {data.cart.map(cartItem => (
+                                <CartItem key={cartItem} cartItem={cartItem} />
+                            ))}
+                        </ul>
+                        <footer>
+                            {/* <p style={{ display: !data.cart.length ? 'none' : '' }}>{data.cart.length && formatMoney(calcTotalPrice(me.cart))}</p> */}
+                            {/* <p style={{ display: !data.cart.length ? 'none' : '' }}>{data.cart.length && (<TakeMyMoney><SickButton>Checkout!</SickButton></TakeMyMoney>)}</p> */}
+                            {!data.cart.length && <p>No Items In Your Cart</p>}
+                        </footer>
+                    </CartStyles>
+                )
+            };
             return (
-                <CartStyles open={localState.data.cartOpen}>
+                <CartStyles open={localCart.data.cartOpen}>
                     <header>
                         <CloseButton title="close" onClick={toggleCart}>&times;</CloseButton>
                         <Supreme>{me.name}'s Cart</Supreme>
@@ -59,4 +91,5 @@ const Cart = props => (
 
 export default Cart;
 export { TOGGLE_CART_MUTATION };
+export { LOCAL_CART_QUERY };
 export { LOCAL_STATE_QUERY };

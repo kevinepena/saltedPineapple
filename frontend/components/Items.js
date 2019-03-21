@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
+import { ApolloClient } from 'apollo-client';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 import Item from './Item';
@@ -19,9 +20,11 @@ const ALL_ITEMS_QUERY = gql`
                 id
                 name
             }
+            # isInCart @client
         }
     }
 `;
+
 
 const Center = styled.div`
     text-align: center;
@@ -29,16 +32,15 @@ const Center = styled.div`
 
 const ItemsList = styled.div`
     display: grid;
-    /* grid-template-columns: 1fr 1fr; */
     grid-template-columns: repeat(3, 1fr);
-    /* grid-template-rows: repeat(4, 1fr); */
     grid-gap: 60px;
     max-width: ${props => props.theme.maxWidth};
     margin: 0 auto;
-    @media(max-width: 500px) {
-    grid-template-columns: 1fr;
-    margin: 15px auto 0 auto;
 
+    @media(max-width: 810px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+    margin: 15px auto 15px auto;
     }
 `;
 
@@ -47,7 +49,6 @@ class Items extends Component {
     render() {
         return (
             <Center>
-                <Pagination page={this.props.page} />
                 <Query
                     query={ALL_ITEMS_QUERY}
                     variables={{
@@ -62,7 +63,7 @@ class Items extends Component {
                         const col3 = [];
                         let init = Math.floor(items.length / 3);
                         let extra = items.length % 3;
-
+                        // if()
                         for (let i = 0; i < init; i++) {
                             col1.push(<Item item={items[i]} key={items[i].id} />);
                         }
@@ -70,11 +71,10 @@ class Items extends Component {
                             col2.push(<Item item={items[i]} key={items[i].id} />);
                         }
                         for (let i = init * 2; i < init * 3 + extra; i++) {
-                            if(i < init * 3) col3.push(<Item item={items[i]} key={items[i].id} />);
-                            if(i === init * 3) col1.push(<Item item={items[i]} key={items[i].id} />);
-                            if(i === init * 3 + 1) col2.push(<Item item={items[i]} key={items[i].id} />);
+                            if (i < init * 3) col3.push(<Item item={items[i]} key={items[i].id} />);
+                            if (i === init * 3) col1.push(<Item item={items[i]} key={items[i].id} />);
+                            if (i === init * 3 + 1) col2.push(<Item item={items[i]} key={items[i].id} />);
                         }
-
                         return <ItemsList>
                             <div>
                                 {col1[0] && col1.map(item => item)}
@@ -86,6 +86,9 @@ class Items extends Component {
                                 {col3[0] && col3.map(item => item)}
                             </div>
                         </ItemsList>
+
+
+
                     }}
                 </Query>
                 <Pagination page={this.props.page} />

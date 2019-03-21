@@ -52,7 +52,7 @@ const Logo = styled.div`
         }
     }
     @media (max-width: 1300px) {
-        margin: 0 auto;
+        /* margin: 0 auto; */
         text-align: center;
     }
 `
@@ -70,18 +70,36 @@ const StyledHeader = styled.header`
             margin: 0 auto;
         }
         @media(max-width: 1300px) {
-            grid-template-columns: 100px 1fr;
+            grid-template-columns: 300px 1fr;
             justify-content: center;
         }
-        @media(max-width: 500px) {
+        @media(max-width: 800px) {
             grid-template-columns: 1fr;
-            div:nth-of-type(2) {
                 /* position: absolute; */
-                margin: 0 auto;
+                /* margin: 0 auto; */
                 ul {
+                    background-color: ${props => props.theme.offWhite};
+                    position: absolute;
                     display: grid;
+                    z-index: 20;
+                    opacity: 0;
+                    transform: translateY(-100%);
+                    height: 100vh;
+                    width: 100%;
                 }
-            }
+                
+                :hover{
+                    ul {
+                        /* background-color: ${props => props.theme.offWhite}; */
+                        /* position: absolute; */
+                        /* display: grid; */
+                        /* z-index: 2; */
+                        transition: all .4s;
+                        opacity: 1;
+                        transform: translateY(-0%);
+                        /* height: 100vh; */
+                    }
+                }
         }
     }
     .sub-bar {
@@ -139,8 +157,17 @@ const StyledHeader = styled.header`
         font-family: 'raleway';
         font-size: 20px;
         position: absolute;
-        top: 15px;
-        left: 0;
+        @media(min-width: 801px) {
+            left: 0;
+            top: 15px;
+        }
+        @media(max-width: 800px) {
+            position: absolute;
+            top: 50%; 
+            right: 50%;
+            left: none;
+            transform: translate(50%,-50%);
+        }
         
         span:nth-of-type(1) {
             color: #BEDDA5;
@@ -152,6 +179,7 @@ const StyledHeader = styled.header`
             color: ${props => props.theme.black};
         }
     }
+
 
     .inside {
         position: absolute;
@@ -225,16 +253,6 @@ class Header extends React.Component {
         let delta;
         let lastScrollTop;
 
-        const scroll = (e) => {
-            console.log(e);
-            if (e.path[1].scrollY > 75) {
-                this.setState({ scroll: true })
-            } else {
-                this.setState({ scroll: false })
-            }
-        }
-
-
         return (
             <StyledHeader>
                 <div className='bar'>
@@ -261,7 +279,6 @@ class Header extends React.Component {
                     <Nav />
                 </div>
                 <div className="sub-bar">
-                    <Search />
                 </div>
                 <div><Cart /></div>
             </StyledHeader>
