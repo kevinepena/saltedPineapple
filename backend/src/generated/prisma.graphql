@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/kevinpena160-66a1df/saltedpineapple/dev
-# timestamp: Fri Mar 15 2019 16:19:25 GMT-0500 (Central Daylight Time)
+# source: https://sick-fits-prod-5720a24ff9.herokuapp.com/backend/prod
+# timestamp: Thu Mar 21 2019 14:21:37 GMT-0500 (Central Daylight Time)
 
 type AggregateCartItem {
   count: Int!
@@ -217,7 +217,6 @@ input CartItemUpdateManyMutationInput {
 input CartItemUpdateManyWithoutUserInput {
   create: [CartItemCreateWithoutUserInput!]
   connect: [CartItemWhereUniqueInput!]
-  set: [CartItemWhereUniqueInput!]
   disconnect: [CartItemWhereUniqueInput!]
   delete: [CartItemWhereUniqueInput!]
   update: [CartItemUpdateWithWhereUniqueWithoutUserInput!]
@@ -527,7 +526,6 @@ input CategoryUpdateManyMutationInput {
 input CategoryUpdateManyWithoutItemInput {
   create: [CategoryCreateWithoutItemInput!]
   connect: [CategoryWhereUniqueInput!]
-  set: [CategoryWhereUniqueInput!]
   disconnect: [CategoryWhereUniqueInput!]
   delete: [CategoryWhereUniqueInput!]
   update: [CategoryUpdateWithWhereUniqueWithoutItemInput!]
@@ -668,6 +666,7 @@ type Item implements Node {
   updatedAt: DateTime!
   user: User!
   categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
+  isInCart: Boolean!
 }
 
 """A connection to a list of items."""
@@ -688,6 +687,7 @@ input ItemCreateInput {
   title: String!
   description: String!
   price: Int!
+  isInCart: Boolean
   images: ItemCreateimagesInput
   largeImages: ItemCreatelargeImagesInput
   user: UserCreateOneInput!
@@ -712,6 +712,7 @@ input ItemCreateWithoutCategoriesInput {
   title: String!
   description: String!
   price: Int!
+  isInCart: Boolean
   images: ItemCreateimagesInput
   largeImages: ItemCreatelargeImagesInput
   user: UserCreateOneInput!
@@ -739,6 +740,8 @@ enum ItemOrderByInput {
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  isInCart_ASC
+  isInCart_DESC
 }
 
 type ItemPreviousValues {
@@ -750,6 +753,7 @@ type ItemPreviousValues {
   price: Int!
   createdAt: DateTime!
   updatedAt: DateTime!
+  isInCart: Boolean!
 }
 
 input ItemScalarWhereInput {
@@ -947,6 +951,10 @@ input ItemScalarWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  isInCart: Boolean
+
+  """All values that are not equal to given value."""
+  isInCart_not: Boolean
 }
 
 type ItemSubscriptionPayload {
@@ -992,6 +1000,7 @@ input ItemUpdateDataInput {
   title: String
   description: String
   price: Int
+  isInCart: Boolean
   images: ItemUpdateimagesInput
   largeImages: ItemUpdatelargeImagesInput
   user: UserUpdateOneRequiredInput
@@ -1006,6 +1015,7 @@ input ItemUpdateInput {
   title: String
   description: String
   price: Int
+  isInCart: Boolean
   images: ItemUpdateimagesInput
   largeImages: ItemUpdatelargeImagesInput
   user: UserUpdateOneRequiredInput
@@ -1020,6 +1030,7 @@ input ItemUpdateManyDataInput {
   title: String
   description: String
   price: Int
+  isInCart: Boolean
   images: ItemUpdateimagesInput
   largeImages: ItemUpdatelargeImagesInput
 }
@@ -1028,6 +1039,7 @@ input ItemUpdateManyMutationInput {
   title: String
   description: String
   price: Int
+  isInCart: Boolean
   images: ItemUpdateimagesInput
   largeImages: ItemUpdatelargeImagesInput
 }
@@ -1035,7 +1047,6 @@ input ItemUpdateManyMutationInput {
 input ItemUpdateManyWithoutCategoriesInput {
   create: [ItemCreateWithoutCategoriesInput!]
   connect: [ItemWhereUniqueInput!]
-  set: [ItemWhereUniqueInput!]
   disconnect: [ItemWhereUniqueInput!]
   delete: [ItemWhereUniqueInput!]
   update: [ItemUpdateWithWhereUniqueWithoutCategoriesInput!]
@@ -1062,6 +1073,7 @@ input ItemUpdateWithoutCategoriesDataInput {
   title: String
   description: String
   price: Int
+  isInCart: Boolean
   images: ItemUpdateimagesInput
   largeImages: ItemUpdatelargeImagesInput
   user: UserUpdateOneRequiredInput
@@ -1278,6 +1290,10 @@ input ItemWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  isInCart: Boolean
+
+  """All values that are not equal to given value."""
+  isInCart_not: Boolean
   user: UserWhereInput
   categories_every: CategoryWhereInput
   categories_some: CategoryWhereInput
@@ -1715,7 +1731,6 @@ input OrderItemUpdateManyDataInput {
 input OrderItemUpdateManyInput {
   create: [OrderItemCreateInput!]
   connect: [OrderItemWhereUniqueInput!]
-  set: [OrderItemWhereUniqueInput!]
   disconnect: [OrderItemWhereUniqueInput!]
   delete: [OrderItemWhereUniqueInput!]
   update: [OrderItemUpdateWithWhereUniqueNestedInput!]

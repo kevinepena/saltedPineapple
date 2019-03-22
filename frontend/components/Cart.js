@@ -11,6 +11,7 @@ import CartItem from "./CartItem";
 import calcTotalPrice from '../lib/calcTotalPrice';
 import formatMoney from '../lib/formatMoney';
 import TakeMyMoney from './TakeMyMoney';
+import { perPage } from '../config';
 
 const LOCAL_CART_QUERY = gql`
     query {
@@ -30,23 +31,43 @@ const TOGGLE_CART_MUTATION = gql`
     }
 `;
 
+const ALL_ITEMS_QUERY = gql`
+    query ALL_ITEMS_QUERY {
+        items(orderBy: createdAt_DESC) {
+            # isInCart @client
+            id
+            title
+            price
+            description
+            images
+            largeImages
+            categories {
+                id
+                name
+            }
+        }
+    }
+`;
+
 const Composed = adopt({
     user: ({ render }) => <User>{render}</User>,
     toggleCart: ({ render }) => <Mutation mutation={TOGGLE_CART_MUTATION}>{render}</Mutation>,
     localCart: ({ render }) => <Query query={LOCAL_CART_QUERY}>{render}</Query>,
     localState: ({ render }) => <Query query={LOCAL_STATE_QUERY}>{render}</Query>,
+    items: ({render}) => <Query query={ALL_ITEMS_QUERY}>{render}</Query>
 });
 
 
 const Cart = () => (
     <Composed>
-        {({ user, toggleCart, localCart, localState }) => {
+        {({ user, toggleCart, localCart, localState, items }) => {
             const me = user.data.me;
+            console.log(items);
 
             if (!me) {
-                console.log(localState)
+                // console.log(localState)
                 const { data } = localState;
-                console.log(data)
+                // console.log(data)
                 return (
                     <CartStyles open={localCart.data.cartOpen}>
                         <header>

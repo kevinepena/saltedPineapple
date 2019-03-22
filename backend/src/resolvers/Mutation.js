@@ -13,7 +13,6 @@ const Mutations = {
         if (!ctx.request.userId) {
             throw new Error('Must be logged in!')
         }
-        console.log(args);
         const argsCopy = { ...args };
         delete argsCopy.category;
         delete argsCopy.images;

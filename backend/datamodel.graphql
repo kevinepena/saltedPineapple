@@ -35,6 +35,7 @@ type Item {
     updatedAt: DateTime!
     user: User!
     categories: [Category]!
+    isInCart: Boolean! @default(value: "false")
 }
 
 type CartItem {

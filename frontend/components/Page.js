@@ -113,7 +113,7 @@ class Page extends Component {
     render() {
         
         return (
-            <ThemeProvider mobile={this.state.mobile} theme={theme}>
+            <ThemeProvider theme={theme}>
                 <StyledPage>
                     <Meta />
                     <Header />

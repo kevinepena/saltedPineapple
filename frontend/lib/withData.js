@@ -1,6 +1,5 @@
 import withApollo from 'next-with-apollo';
 import ApolloClient from 'apollo-boost';
-import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { endpoint, prodEndpoint } from '../config';
 import { LOCAL_CART_QUERY, LOCAL_STATE_QUERY } from '../components/Cart';
@@ -17,9 +16,6 @@ function createClient({ headers }) {
       });
     },
     cache: new InMemoryCache(),
-    link: new HttpLink({
-      uri: 'http://localhost:6666/graphql',
-    }),
     // local data
     clientState: {
       resolvers: {
@@ -31,6 +27,11 @@ function createClient({ headers }) {
           }
         },
         Query: {
+          isInCart: (items, _args, { cache }) => {
+            const { cartItems } = cache.readQuery({ query: LOCAL_STATE_QUERY });
+            console.log(cartItems);
+            return items;
+          },
           cart(_, variables, client) {
             const cache = client.cache;
             const { cart } = cache.readQuery({

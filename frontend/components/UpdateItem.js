@@ -45,7 +45,6 @@ class UpdateItem extends Component {
     updateItem = async (e, updateItemMutation) => {
         e.preventDefault();
         console.log('updating item');
-        console.log(this.state);
         const res = await updateItemMutation({
             variables: {
                 id: this.props.id,
@@ -65,8 +64,6 @@ class UpdateItem extends Component {
         return (
             <Query query={SINGLE_ITEM_QUERY} variables={{ id: this.props.id }}>
                 {(data, loading) => {
-
-                    { console.log(data.data.item) }
 
                     if (loading) return <p>Loading...</p>;
                     if (!data.data.item) return <p>ERROR! Item ID not found</p>;

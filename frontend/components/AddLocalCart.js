@@ -4,32 +4,14 @@ import gql from 'graphql-tag';
 import { adopt } from 'react-adopt';
 // import { CURRENT_USER_QUERY } from './User';
 
-// const SINGLE_ITEM_QUERY = gql`
-//     query SINGLE_ITEM_QUERY($id: ID!) {
-//         item(where: {id: $id}) {
-//             isInCart @client
-//             id
-//             title
-//             description
-//             images
-//             largeImages
-//             categories {
-//                 id
-//                 name
-//                 item {
-//                     id
-//                 }
-//             }
-//         }
-//     }
-// `;
+
 
 
 
 // const Composed = adopt({
 //     addToCart: ({ render }) => <Mutation mutation={SINGLE_ITEM_QUERY}>{render}</Mutation>,
 //     localCart: ({ render }) => <Query query={LOCAL_CART_QUERY}>{render}</Query>,
-//     item: ({ render }) => <Query query={SINGLE_ITEM_QUERY}>{render}</Query>,
+//     items: ({ render }) => <Query query={ALL_ITEMS_QUERY}>{render}</Query>,
 // });
 const ADD_CART_MUTATION = gql`
             mutation ADD_CART_MUTATION($id: ID!) {

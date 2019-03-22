@@ -76,7 +76,7 @@ class Items extends Component {
                             if (i === init * 3 + 1) col2.push(<Item item={items[i]} key={items[i].id} />);
                         }
                         return <ItemsList>
-                            <div>
+                            {/* <div>
                                 {col1[0] && col1.map(item => item)}
                             </div>
                             <div>
@@ -84,7 +84,8 @@ class Items extends Component {
                             </div>
                             <div>
                                 {col3[0] && col3.map(item => item)}
-                            </div>
+                            </div> */}
+                            {data.items.map((item, i) => <div key={i}><Item item={item} key={item.id} /></div>)}
                         </ItemsList>
 
 
@@ -99,4 +100,3 @@ class Items extends Component {
 
 export default Items;
 export { ALL_ITEMS_QUERY };
-{/* {data.items.map((item, i) => <div key={i}><Item item={item} key={item.id} /></div>)} */ }

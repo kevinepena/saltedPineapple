@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Downshift, { resetIdCounter } from 'downshift';
 import Router from 'next/router';
 import { ApolloConsumer } from 'react-apollo';
@@ -31,7 +31,8 @@ function routeToItem(item) {
     })
 }
 
-class AutoComplete extends React.Component {
+class AutoComplete extends Component {
+
     state = {
         items: [],
         loading: false
@@ -50,10 +51,12 @@ class AutoComplete extends React.Component {
             loading: false
         })
     }, 400);
+
     render() {
+        console.log(this.props)
         resetIdCounter();
         return (
-            <SearchStyles search={this.props.search} className="searchbar" >
+            <SearchStyles search={this.props.open} className="searchbar" >
                 <Downshift onChange={routeToItem} itemToString={item => (item === null ? '' : item.title)}>
                     {({ getInputProps, getItemProps, isOpen, inputValue, highlightedIndex }) => (
                         <div>

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Mutation } from 'react-apollo';
+import React, { Component } from 'react';
 import { TOGGLE_CART_MUTATION } from './Cart';
 import NavStyles from './styles/NavStyles';
 import User from './User';
@@ -19,7 +20,7 @@ function hasPermission(user, permissionsNeeded) {
     }
 }
 
-class Nav extends React.Component {
+class Nav extends Component {
 
     state = {
         search: false
@@ -28,7 +29,11 @@ class Nav extends React.Component {
     searchButt = () => {
         this.setState({ search: !this.state.search });
     }
+
+    
     render() {
+
+        const check = '123mfcheck';
 
         return (
             <User>
@@ -56,7 +61,8 @@ class Nav extends React.Component {
                                     <a className="sell" data-hover="Sell">Sell</a>
                                 </Link>
 
-                                <Search search={this.state.search} />
+                                {/* <Search search={this.state.search} /> */}
+                                <Search />
                                 <div className="search" onClick={this.searchButt}>
                                     <a>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FB7BE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -113,7 +119,7 @@ class Nav extends React.Component {
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#797C80" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><circle cx="10" cy="20.5" r="1" /><circle cx="18" cy="20.5" r="1" /><path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1" /></svg>
                                             {/* <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#797C80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="20.5" r="1" /><circle cx="18" cy="20.5" r="1" /><path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1" /></svg> */}
                                             {/* <CartCount count={me.cart.reduce((tally, CartItem) => tally + CartItem.quantity, 0)} /> */}
-                                            </button>
+                                        </button>
                                     )}
                                 </Mutation>
                             </>
