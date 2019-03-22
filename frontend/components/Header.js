@@ -58,9 +58,14 @@ const Logo = styled.div`
 `
 
 const StyledHeader = styled.header`
-        margin-bottom: 81px;
+        margin-bottom: 82px;
+        /* top: 0; */
+        /* position: absolute; */
             .bar {
+                /* position: ${props => props.peek ? '' : 'fixed'}; */
                 position: fixed;
+                /* transform: translateY(0%); */
+                opacity: 1;
                 top: 0;
                 transition: top 0.2s ease-in-out;
                 /* top: ${props => props.peek ? '0' : '-81px'}; */
@@ -110,9 +115,38 @@ const StyledHeader = styled.header`
                     }
                 }
             }
-            .bar-up { 
-                top: -81px;
+            .bar-up-up { 
+                top: -83px;
+                /* transform: translateY(-110%); */
+                position: fixed;
             } 
+            .bar-up { 
+                /* position: absolute; */
+                top: -83px;
+                /* opacity: 0; */
+                /* position: fixed; */
+                /* position: ${props => props.abs ? 'absolute' : ''}; */
+                /* transform: translateY(-110%); */
+            } 
+            .bar-down-down {
+                /* position: absolute; */
+                /* transition: translate 0.2s ease-in-out, opacity 0.2s ease-in-out; */
+                opacity: 1;
+                /* transform: translateY(0%); */
+                top: 0;
+            }
+            .bar-down {
+                position: absolute;
+                /* transform: translateY(0%); */
+                top: 0;
+            }
+            .abs {
+                position: absolute;
+            }
+            
+            .fix {
+                position: fixed;
+            }
             .sub-bar {
                 display: grid;
                 grid-template-columns: 1fr auto;
@@ -229,21 +263,24 @@ const StyledHeader = styled.header`
 class Header extends React.Component {
 
     state = {
+        position: true,
         scroll: false,
+        fixed: false,
         mobile: false,
         open: false,
         peek: true,
+        top: true,
         scroll: 0
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this.scroll);
-        window.addEventListener('resize', this.resize);
+        document.addEventListener('scroll', this.scroll);
+        document.addEventListener('resize', this.resize);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.scroll);
-        window.addEventListener('resize', this.resize);
+        document.removeEventListener('scroll', this.scroll);
+        document.addEventListener('resize', this.resize);
     }
 
     resize = (e) => {
@@ -255,15 +292,21 @@ class Header extends React.Component {
     }
 
     scroll = (e) => {
-        // e.path[1].scrollY > 81 && (
-        //     this.setState({ peek: false, scroll: scrollY })
-        // );
-
         if (e.path[1].scrollY < 82) {
-            this.setState({ peek: true, scroll: e.path[1].scrollY });
+            if(e.path[1].scrollY === 0) {
+                this.setState({ peek: false, scroll: e.path[1].scrollY, position: true });
+            } else {
+            this.setState({ peek: false, scroll: e.path[1].scrollY });
+            }
+            // return
+        } else {
+            // this.setState({ peek: false, scroll: e.path[1].scrollY })
+            if (e.path[1].scrollY < this.state.scroll) {
+                this.setState({ peek: false, scroll: e.path[1].scrollY, position: false })
+            } else if (e.path[1].scrollY > this.state.scroll) {
+                this.setState({ peek: true, scroll: e.path[1].scrollY, position: false })
+            }
         }
-
-        e.path[1].scrollY < this.state.scroll ? (this.setState({ peek: false, scroll: e.path[1].scrollY })) : (this.setState({ peek: true, scroll: e.path[1].scrollY }));
     }
 
 
@@ -272,15 +315,16 @@ class Header extends React.Component {
     }
 
     render() {
-        console.log(this.state.peek);
-        console.log(this.state.scroll);
-        let didScroll;
-        let delta;
-        let lastScrollTop;
 
         return (
-            <StyledHeader peek={this.state.peek} top={this.state.scroll} className={this.state.peek ? 'peek' : ''}>
-                <div className={this.state.peek ? 'bar' : 'bar-up bar'}>
+            <StyledHeader peek={this.state.peek} top={this.state.scroll} >
+                <div className={`${this.state.peek ? ' bar-up bar ' : ' bar '}${this.state.scroll < 82 ? ' bar-down-down ' : ''}`}
+                // ${this.state.position ? 'bar-down' : ''}
+                // style={{
+                //     top: this.state.scroll < 82 ? this.state.scroll : '0'
+                // }}
+                >
+
                     <Logo>
                         <Link href="/">
                             <a>

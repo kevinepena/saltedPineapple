@@ -8,7 +8,7 @@ const NavStyles = styled.ul`
   justify-content: flex-end;
   font-size: 2rem;
   > div {
-    display: inline-grid;
+    display: flex;
   }
   
   a,
@@ -113,7 +113,7 @@ const NavStyles = styled.ul`
     flex: 6;
   }
 
-  .me:hover, .me:focus-within {
+  > .me:hover, .me:focus-within {
     .dropdown {
       z-index: 1;
       opacity: 1;
@@ -123,7 +123,7 @@ const NavStyles = styled.ul`
     visibility: visible;
     }
   }
-  .shop:hover, .shop:focus-within {
+  > .shop:hover, .shop:focus-within {
     .dropdown {
       z-index: 500;
       opacity: 1;
