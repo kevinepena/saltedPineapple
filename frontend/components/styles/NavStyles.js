@@ -29,7 +29,7 @@ const NavStyles = styled.ul`
     border: 0;
     cursor: pointer;
     @media (max-width: 700px) {
-      font-size: 10px;
+      font-size: 20px;
       padding: 0 10px;
     }
     &:before {
@@ -92,7 +92,7 @@ const NavStyles = styled.ul`
 
   .searchbar {
     transition: flex 0.7s, color 0.7s, opacity 1s, background-color .2s linear ;
-  background-color: ${props => props.search ? '#3a3a3a' : '#3a3a3a'};
+  /* background-color: ${props => props.search ? '#3a3a3a' : '#3a3a3a'}; */
 
   /* z-index: ${props => props.search ? '0' : '-1'}; */
   opacity: ${props => props.search ? '1' : '0'};
@@ -143,6 +143,14 @@ const NavStyles = styled.ul`
     transition: ${props => props.search ? 'opacity .2s cubic-bezier(0.645, 0.045, 0.355, 1), translate .5s ease' : 'opacity 2.5s cubic-bezier(0.645, 0.045, 0.355, 1), transform 2.3s ease'};
     flex: ${props => props.search ? '0' : ''};
     flex-shrink: ${props => props.search ? '10' : ''};
+  }
+  @media(max-width: 800px) {
+    > {
+      margin: 0 auto;
+    }
+    .searchbar, .search {
+      display: none;
+    }
   }
 
 

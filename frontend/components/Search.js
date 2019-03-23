@@ -53,10 +53,8 @@ class AutoComplete extends Component {
     }, 400);
 
     render() {
-        console.log(this.props)
-        resetIdCounter();
         return (
-            <SearchStyles search={this.props.open} className="searchbar" >
+            <SearchStyles search={this.props.open} className={this.props.className || 'searchbar'} >
                 <Downshift onChange={routeToItem} itemToString={item => (item === null ? '' : item.title)}>
                     {({ getInputProps, getItemProps, isOpen, inputValue, highlightedIndex }) => (
                         <div>
@@ -77,7 +75,9 @@ class AutoComplete extends Component {
                                 )}
                             </ApolloConsumer>
                             {isOpen && (
-                                <DropDown>
+                                <DropDown 
+                                margin={this.props.className}
+                                >
                                     {this.state.items.map((item, index) => (
                                         <DropDownItem
                                             {...getItemProps({

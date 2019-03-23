@@ -42,6 +42,11 @@ const ItemsList = styled.div`
     grid-gap: 5px;
     margin: 15px auto 15px auto;
     }
+    @media(max-width: 700px) {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 5px;
+    margin: 15px auto 15px auto;
+    }
 `;
 
 class Items extends Component {

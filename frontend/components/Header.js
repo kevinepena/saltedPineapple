@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 import Cart from './Cart';
+import HamburgerButton from './styles/HamburgerButton';
 import Search from './Search';
 
 Router.onRouteChangeStart = () => {
@@ -26,7 +27,6 @@ const Logo = styled.div`
     height: 80px;
     font-family: 'hipster';
     font-size: 4rem;
-    margin-left: 2rem;
     position: relative;
     z-index: 2;
     transform: skew(-7deg);
@@ -55,10 +55,17 @@ const Logo = styled.div`
         /* margin: 0 auto; */
         text-align: center;
     }
+    @media(min-width: 801px) {
+        margin-left: 3rem;
+    }
+    @media(max-width: 800px) {
+        grid-column: 2;
+    }
 `
 
 const StyledHeader = styled.header`
         margin-bottom: 82px;
+
         /* top: 0; */
         /* position: absolute; */
             .bar {
@@ -86,35 +93,86 @@ const StyledHeader = styled.header`
                     grid-template-columns: 300px 1fr;
                     justify-content: center;
                 }
+                @media(min-width: 801px) {
+                    .searchcomp {
+            
+                    }
+                    .ham, .searchcomp, > .searchbar {
+                        display: none;
+                    }
+                }
                 @media(max-width: 800px) {
-                    grid-template-columns: 1fr;
+                    
+                    grid-template-columns: 50px 1fr 50px;
                     /* position: absolute; */
                     /* margin: 0 auto; */
+                    .searchcomp {
+                        display: flex;
+                        > div {
+                            align-self: center;
+                            margin-top: 10px;
+                        }
+                    }
+                    > .searchbar {
+                        transition: all 0.2s ease-in-out;
+                        position: absolute;
+                        opacity: 0;
+                        top: 40px;
+                        width: 100%;
+                    }
+                    .searchbar-open {
+                        top: 82px;
+                        opacity: 1;
+                        transition: all 0.2s ease-in-out;
+
+                    }
+                    
                     ul {
+                        justify-content: center;
                         background-color: ${props => props.theme.offWhite};
                         position: absolute;
                         display: grid;
                         z-index: 20;
-                        opacity: 0;
-                        transform: translateY(-100%);
+                        /* opacity: 0; */
+                        transform: translateX(-100%);
                         height: 100vh;
                         width: 100%;
+                        transition: transform .4s, opacity .2s;
+
+                        .me {
+                            > a {
+                                display: none;
+                            }
+                        }
+                        
+                        .me .dropdown {
+                            /* transform: translateY(100%); */
+                        }
+                        .shop .dropdown {
+                            transform: translateY(185%);
+                        }
+                        .me .dropdown, .shop .dropdown {
+                            opacity: 1;
+                        }
+
+                        button {
+                            display: inline-flex;
+                        }
                     }
-                    
-                    :hover{
-                        ul {
+
+                    .navopen {
                             /* background-color: ${props => props.theme.offWhite}; */
                             /* position: absolute; */
                             /* display: grid; */
                             /* z-index: 2; */
-                            transition: all .4s;
-                            opacity: 1;
-                            transform: translateY(-0%);
+                            transition: transform .4s, opacity 0.2;
+                            transform: translateX(-0%);
+                            /* opacity: 1; */
                             /* height: 100vh; */
                         }
                     }
                 }
-            }
+                
             .bar-up-up { 
                 top: -83px;
                 /* transform: translateY(-110%); */
@@ -207,6 +265,7 @@ const StyledHeader = styled.header`
                     top: 15px;
                 }
                 @media(max-width: 800px) {
+                    
                     position: absolute;
                     top: 50%; 
                     right: 50%;
@@ -263,6 +322,7 @@ const StyledHeader = styled.header`
 class Header extends React.Component {
 
     state = {
+        search: false,
         position: true,
         scroll: false,
         fixed: false,
@@ -310,8 +370,16 @@ class Header extends React.Component {
     }
 
 
-    mobile = (open = false) => {
-        this.setState({ open: open });
+    mobileToggle = () => {
+        this.setState({ open: !this.state.open });
+    }
+    
+    closeNav = () => {
+        this.setState({ open: false });
+    }
+
+    searchButt = () => {
+        this.setState({search: !this.state.search});
     }
 
     render() {
@@ -324,7 +392,14 @@ class Header extends React.Component {
                 //     top: this.state.scroll < 82 ? this.state.scroll : '0'
                 // }}
                 >
+                                <div className="searchcomp" onClick={this.searchButt}>
+                                    <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#3a3a3a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
 
+                                        {/* <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FB7BE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> */}
+                                    </div>
+                                </div>
+                                    <Search className={this.state.search ? 'searchbar searchbar-open' : 'searchbar'} />
                     <Logo>
                         <Link href="/">
                             <a>
@@ -345,9 +420,12 @@ class Header extends React.Component {
                         </Link>
                     </Logo>
 
-                    <Nav />
+                    <div className="ham" onClick={this.mobileToggle} >
+                    <HamburgerButton open={this.state.open} />
+                    </div>
+                    <Nav closeNav={this.closeNav} open={this.state.open} />
                 </div>
-                <div><Cart /></div>
+                <div className="cartcomp"><Cart /></div>
             </StyledHeader>
         )
     }

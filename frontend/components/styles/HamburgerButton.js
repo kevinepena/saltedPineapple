@@ -2,6 +2,11 @@ import styled from 'styled-components';
 import React, { Component } from 'react';
 
 const BetterButton = styled.div`
+position: absolute;
+right: 0;
+top: 0;
+transform: scale(0.5);
+z-index: 601;
 .menu {
   height: 70px;
   width: 50px;

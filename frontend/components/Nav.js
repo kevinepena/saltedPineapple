@@ -39,17 +39,17 @@ class Nav extends Component {
             <User>
                 {({ data: { me } }) => (
                     // <div>
-                    <NavStyles search={this.state.search} className="nav" data-test='nav'>
+                    <NavStyles onClick={this.props.closeNav}  search={this.state.search} className={`${this.props.open ? 'nav navopen' : 'nav'}`} data-test='nav'>
                         <div className="shop">
                             <Link href='/items'>
                                 <a className="shop" data-hover="Shop">Shop<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#797C80" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg></a>
 
                             </Link>
                             <div className="dropdown">
-                                <Link>
+                                <Link href='/'>
                                     <a data-hover='Bracelets'>Bracelets</a>
                                 </Link>
-                                <Link>
+                                <Link href="/">
                                     <a data-hover='Necklaces'>Necklaces</a>
                                 </Link>
                             </div>
@@ -62,7 +62,7 @@ class Nav extends Component {
                                 </Link>
 
                                 {/* <Search search={this.state.search} /> */}
-                                <Search />
+                                <Search open={this.props.search} />
                                 <div className="search" onClick={this.searchButt}>
                                     <a>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7FB7BE" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>

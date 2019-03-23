@@ -5,7 +5,7 @@ const DropDown = styled.div`
   width: 100%;
   z-index: 2;
   border: 1px solid ${props => props.theme.lightgrey};
-  margin-top: 80px;
+  margin-top: ${props => props.margin ? '0' : '82px'};
 `;
 
 const DropDownItem = styled.div`
