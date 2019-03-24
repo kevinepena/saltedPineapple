@@ -8,6 +8,7 @@ import CartStyles from './styles/CartStyles';
 import Supreme from './styles/Supreme';
 import CloseButton from './styles/CloseButton';
 import CartItem from "./CartItem";
+import LocalCartItem from "./LocalCartItem";
 import calcTotalPrice from '../lib/calcTotalPrice';
 import formatMoney from '../lib/formatMoney';
 import TakeMyMoney from './TakeMyMoney';
@@ -34,7 +35,6 @@ const TOGGLE_CART_MUTATION = gql`
 const ALL_ITEMS_QUERY = gql`
     query ALL_ITEMS_QUERY {
         items(orderBy: createdAt_DESC) {
-            # isInCart @client
             id
             title
             price
@@ -54,7 +54,7 @@ const Composed = adopt({
     toggleCart: ({ render }) => <Mutation mutation={TOGGLE_CART_MUTATION}>{render}</Mutation>,
     localCart: ({ render }) => <Query query={LOCAL_CART_QUERY}>{render}</Query>,
     localState: ({ render }) => <Query query={LOCAL_STATE_QUERY}>{render}</Query>,
-    items: ({render}) => <Query query={ALL_ITEMS_QUERY}>{render}</Query>
+    items: ({ render }) => <Query query={ALL_ITEMS_QUERY}>{render}</Query>
 });
 
 
@@ -63,10 +63,11 @@ const Cart = () => (
         {({ user, toggleCart, localCart, localState, items }) => {
             const me = user.data.me;
 
+
             if (!me) {
-                // console.log(localState)
                 const { data } = localState;
-                // console.log(data)
+                const localcartitems = [];
+
                 return (
                     <CartStyles open={localCart.data.cartOpen}>
                         <header>
@@ -75,9 +76,11 @@ const Cart = () => (
                             <p>You have {data.cart.length} item{data.cart.length === 1 ? '' : 's'} in your cart!</p>
                         </header>
                         <ul>
-                            {data.cart.map(cartItem => (
-                                <CartItem key={cartItem} cartItem={cartItem} />
-                            ))}
+                            {data.cart.map((id, i) => (
+                                <LocalCartItem key={i} num={i} id={id} />
+                            )
+                            )}
+
                         </ul>
                         <footer>
                             {/* <p style={{ display: !data.cart.length ? 'none' : '' }}>{data.cart.length && formatMoney(calcTotalPrice(me.cart))}</p> */}
@@ -86,27 +89,29 @@ const Cart = () => (
                         </footer>
                     </CartStyles>
                 )
-            };
-            return (
-                <CartStyles open={localCart.data.cartOpen}>
-                    <header>
-                        <CloseButton title="close" onClick={toggleCart}>&times;</CloseButton>
-                        <Supreme>{me.name}'s Cart</Supreme>
-                        <p>You have {me.cart.length} item{me.cart.length === 1 ? '' : 's'} in your cart!</p>
-                    </header>
-                    <ul>
-                        {me.cart.map(cartItem => (
-                            <CartItem key={cartItem.id} cartItem={cartItem} />
-                        ))}
-                    </ul>
-                    <footer>
-                        <p style={{ display: !me.cart.length ? 'none' : '' }}>{me.cart.length && formatMoney(calcTotalPrice(me.cart))}</p>
-                        <p style={{ display: !me.cart.length ? 'none' : '' }}>{me.cart.length && (<TakeMyMoney><SickButton>Checkout!</SickButton></TakeMyMoney>)}</p>
-                        {!me.cart.length && <p>No Items In Your Cart</p>}
-                    </footer>
-                </CartStyles>
-            );
-        }}</Composed>
+            } else {
+                return (
+                    <CartStyles open={localCart.data.cartOpen}>
+                        <header>
+                            <CloseButton title="close" onClick={toggleCart}>&times;</CloseButton>
+                            <Supreme>{me.name}'s Cart</Supreme>
+                            <p>You have {me.cart.length} item{me.cart.length === 1 ? '' : 's'} in your cart!</p>
+                        </header>
+                        <ul>
+                            {me.cart.map(cartItem => (
+                                <CartItem key={cartItem.id} cartItem={cartItem} />
+                            ))}
+                        </ul>
+                        <footer>
+                            <p style={{ display: !me.cart.length ? 'none' : '' }}>{me.cart.length && formatMoney(calcTotalPrice(me.cart))}</p>
+                            <p style={{ display: !me.cart.length ? 'none' : '' }}>{me.cart.length && (<TakeMyMoney><SickButton>Checkout!</SickButton></TakeMyMoney>)}</p>
+                            {!me.cart.length && <p>No Items In Your Cart</p>}
+                        </footer>
+                    </CartStyles>
+                );
+            }
+        }
+        }</Composed>
 )
 
 export default Cart;

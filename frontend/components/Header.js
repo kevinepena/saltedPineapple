@@ -114,6 +114,7 @@ const StyledHeader = styled.header`
                         }
                     }
                     > .searchbar {
+                        z-index: -1;
                         transition: all 0.2s ease-in-out;
                         position: absolute;
                         opacity: 0;
@@ -121,6 +122,7 @@ const StyledHeader = styled.header`
                         width: 100%;
                     }
                     .searchbar-open {
+                        z-index: 0;
                         top: 82px;
                         opacity: 1;
                         transition: all 0.2s ease-in-out;
@@ -352,19 +354,19 @@ class Header extends React.Component {
     }
 
     scroll = (e) => {
-        if (e.path[1].scrollY < 82) {
-            if(e.path[1].scrollY === 0) {
-                this.setState({ peek: false, scroll: e.path[1].scrollY, position: true });
+        if (window.pageYOffset < 82) {
+            if(window.pageYOffset === 0) {
+                this.setState({ peek: false, scroll: window.pageYOffset, position: true });
             } else {
-            this.setState({ peek: false, scroll: e.path[1].scrollY });
+            this.setState({ peek: false, scroll: window.pageYOffset });
             }
             // return
         } else {
-            // this.setState({ peek: false, scroll: e.path[1].scrollY })
-            if (e.path[1].scrollY < this.state.scroll) {
-                this.setState({ peek: false, scroll: e.path[1].scrollY, position: false })
-            } else if (e.path[1].scrollY > this.state.scroll) {
-                this.setState({ peek: true, scroll: e.path[1].scrollY, position: false })
+            // this.setState({ peek: false, scroll: e.target.body.scrollTop })
+            if (window.pageYOffset < this.state.scroll) {
+                this.setState({ peek: false, scroll: window.pageYOffset, position: false })
+            } else if (window.pageYOffset > this.state.scroll) {
+                this.setState({ peek: true, scroll: window.pageYOffset, position: false })
             }
         }
     }
