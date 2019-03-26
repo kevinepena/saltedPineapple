@@ -65,7 +65,7 @@ export default class Items extends Component {
                                         pathname: '/update',
                                         query: { id: item.id }
                                     }}>
-                                        <a>Edit ✏️</a>
+                                        <a>Edit</a>
                                     </Link>
                                     <DeleteItem id={item.id}>Delete This Item</DeleteItem>
                                 </>

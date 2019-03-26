@@ -19,14 +19,24 @@ const ADD_CART_MUTATION = gql`
             }
         `;
 class AddToCart extends React.Component {
+
+    state = {
+        clicked: false
+    }
+    onClick = () => {
+        this.setState({ clicked: true });
+        setTimeout(this.setState({ clicked: false }), 2000);
+    }
+
     render() {
         const { id } = this.props;
+
 
         return (
             // null
             <Mutation mutation={ADD_CART_MUTATION} variables={{ id }}>
                 {(addToCart, { loading, error }) => (
-                    <button disabled={loading} onClick={addToCart}>Add{loading ? 'ing' : ''} To Cart 🛒</button>
+                    <button className={this.state.clicked ? 'clicked addcart addlocalcart' : 'addcart addlocalcart'} disabled={loading} onClick={addToCart}>Add{loading ? 'ing' : ''} To Cart</button>
                 )}
             </Mutation>
         )

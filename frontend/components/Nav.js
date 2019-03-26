@@ -30,7 +30,7 @@ class Nav extends Component {
         this.setState({ search: !this.state.search });
     }
 
-    
+
     render() {
 
         const check = '123mfcheck';
@@ -39,7 +39,7 @@ class Nav extends Component {
             <User>
                 {({ data: { me } }) => (
                     // <div>
-                    <NavStyles onClick={this.props.closeNav}  search={this.state.search} className={`${this.props.open ? 'nav navopen' : 'nav'}`} data-test='nav'>
+                    <NavStyles onClick={this.props.closeNav} search={this.state.search} className={`${this.props.open ? 'nav navopen' : 'nav'}`} data-test='nav'>
                         <div className="shop">
                             <Link href='/items'>
                                 <a className="shop" data-hover="Shop">Shop<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#797C80" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg></a>
@@ -57,9 +57,11 @@ class Nav extends Component {
 
                         {me && (
                             <>
-                                <Link href='/sell'>
-                                    <a className="sell" data-hover="Sell">Sell</a>
-                                </Link>
+                                {hasPermission(me, ['ADMIN']) && (
+                                    <Link href='/sell'>
+                                        <a className="sell" data-hover="Sell">Sell</a>
+                                    </Link>
+                                )}
 
                                 {/* <Search search={this.state.search} /> */}
                                 <div className="search" onClick={this.searchButt}>

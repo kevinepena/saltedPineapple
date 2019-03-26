@@ -346,7 +346,7 @@ class Header extends React.Component {
     }
 
     resize = (e) => {
-        if (e.path[0].screen.availWidth < 700) {
+        if (window.outerWidth < 700) {
             this.setState({ mobile: true })
         } else {
             this.setState({ mobile: false })

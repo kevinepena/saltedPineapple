@@ -20,7 +20,6 @@ const ALL_ITEMS_QUERY = gql`
                 id
                 name
             }
-            # isInCart @client
         }
     }
 `;
@@ -28,6 +27,7 @@ const ALL_ITEMS_QUERY = gql`
 
 const Center = styled.div`
     text-align: center;
+    margin-top: 20px;
 `;
 
 const ItemsList = styled.div`
@@ -54,6 +54,7 @@ class Items extends Component {
     render() {
         return (
             <Center>
+         
                 <Query
                     query={ALL_ITEMS_QUERY}
                     variables={{
@@ -81,7 +82,8 @@ class Items extends Component {
                             if (i === init * 3 + 1) col2.push(<Item item={items[i]} key={items[i].id} />);
                         }
                         return <ItemsList>
-                            {/* <div>
+
+                            <div>
                                 {col1[0] && col1.map(item => item)}
                             </div>
                             <div>
@@ -89,8 +91,8 @@ class Items extends Component {
                             </div>
                             <div>
                                 {col3[0] && col3.map(item => item)}
-                            </div> */}
-                            {data.items.map((item, i) => <div key={i}><Item item={item} key={item.id} /></div>)}
+                            </div>
+                            {/* {data.items.map((item, i) => <div key={i}><Item item={item} key={item.id} /></div>)} */}
                         </ItemsList>
 
 

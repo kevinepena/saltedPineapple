@@ -58,6 +58,7 @@ class TakeMyMoney extends React.Component {
                                     image={me.cart.length && me.cart[0].item && me.cart[0].item.image}
                                     stripeKey="pk_test_MsNNl0i54dpRDp5E1HSZDNWH"
                                     currency="USD"
+                                    shippingAddress={true}
                                     email={me.email}
                                     token={res => this.onToken(res, createOrder)}
                                 >

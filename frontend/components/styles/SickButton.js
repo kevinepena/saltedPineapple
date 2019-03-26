@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const SickButton = styled.button`
   float: right;
-  background: red;
+  background: ${props => props.theme.mummy};
   color: white;
   font-weight: 500;
   border: 0;
