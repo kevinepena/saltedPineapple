@@ -49,7 +49,7 @@ class Order extends Component {
                     return (
                         <OrderStyles data-test="order">
                             <Head>
-                                <title>Sick Fits - Order {order.id}</title>
+                                <title>Order {order.id} - Shopping Salted Pineapple</title>
                             </Head>
                             <p>
                                 <span>Order ID:</span>

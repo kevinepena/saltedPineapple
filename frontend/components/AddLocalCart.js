@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { adopt } from 'react-adopt';
@@ -18,14 +18,15 @@ const ADD_CART_MUTATION = gql`
                 addToCart(id: $id) @client
             }
         `;
-class AddToCart extends React.Component {
+class AddToCart extends Component {
 
     state = {
         clicked: false
     }
-    onClick = () => {
+    changeState = (pas) => {
         this.setState({ clicked: true });
-        setTimeout(this.setState({ clicked: false }), 2000);
+        setTimeout(function() {this.setState({ clicked: false })}.bind(this), 500);
+        pas();
     }
 
     render() {
@@ -35,9 +36,13 @@ class AddToCart extends React.Component {
         return (
             // null
             <Mutation mutation={ADD_CART_MUTATION} variables={{ id }}>
-                {(addToCart, { loading, error }) => (
-                    <button className={this.state.clicked ? 'clicked addcart addlocalcart' : 'addcart addlocalcart'} disabled={loading} onClick={addToCart}>Add{loading ? 'ing' : ''} To Cart</button>
-                )}
+                {(addToCart, { loading, error }) => {
+                    return <button onClick={e => {this.changeState(addToCart)}} className={this.state.clicked ? 'clicked addcart addlocalcart' : 'addcart addlocalcart'} disabled={loading}>
+                    {this.state.clicked ? '✔' : 'Add To Cart'}
+                    {/* <svg className="cartsvg" xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#797C80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="20.5" r="1"/><circle cx="18" cy="20.5" r="1"/><path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1"/>
+                    </svg> */}
+                    </button>
+                }}
             </Mutation>
         )
     }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { adopt } from 'react-adopt';
+import Link from 'next/link';
 import User from './User';
 import SickButton from './styles/SickButton';
 import CartStyles from './styles/CartStyles';
@@ -12,6 +13,7 @@ import LocalCartItem from "./LocalCartItem";
 import calcTotalPrice from '../lib/calcTotalPrice';
 import formatMoney from '../lib/formatMoney';
 import TakeMyMoney from './TakeMyMoney';
+import PleaseSignUp from './PleaseSignUp';
 import { perPage } from '../config';
 
 const LOCAL_CART_QUERY = gql`
@@ -84,7 +86,8 @@ const Cart = () => (
                         </ul>
                         <footer>
                             {/* <p style={{ display: !data.cart.length ? 'none' : '' }}>{data.cart.length && formatMoney(calcTotalPrice(me.cart))}</p> */}
-                            {/* <p style={{ display: !data.cart.length ? 'none' : '' }}>{data.cart.length && (<TakeMyMoney><SickButton>Checkout!</SickButton></TakeMyMoney>)}</p> */}
+                            {/* <p style={{ display: !data.cart.length ? 'none' : '' }}>{data.cart.length && (<PleaseSignUp><TakeMyMoney><SickButton>Checkout!</SickButton></TakeMyMoney></PleaseSignUp>)}</p> */}
+                            <p style={{ display: !data.cart.length ? 'none' : '' }}>{data.cart.length && (<Link href='/signup'><a>Sign Up to checkout</a></Link>)}</p>
                             {!data.cart.length && <p>No Items In Your Cart</p>}
                         </footer>
                     </CartStyles>

@@ -61,13 +61,15 @@ export default class Items extends Component {
                         <div className="buttonList">
                             {me && hasPermission(me, ['ADMIN']) && (
                                 <>
-                                    <Link href={{
-                                        pathname: '/update',
-                                        query: { id: item.id }
-                                    }}>
-                                        <a>Edit</a>
-                                    </Link>
-                                    <DeleteItem id={item.id}>Delete This Item</DeleteItem>
+                                    <button>
+                                        <Link href={{
+                                            pathname: '/update',
+                                            query: { id: item.id }
+                                        }}>
+                                            <a>Edit</a>
+                                        </Link>
+                                    </button>
+                                    <DeleteItem id={item.id}>Delete</DeleteItem>
                                 </>
                             )}
 

@@ -7,7 +7,7 @@ const Item = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  transition: all 1s;
+  /* transition: all 1s; */
   img {
     /* flex-basis: 33%; */
     width: 100%;
@@ -42,6 +42,7 @@ const Item = styled.div`
       transition: all 0.2s;
       /* border: 2px solid ${props => props.theme.grey}; */
       background-color: #fff;
+      color: ${props => props.theme.mummy};
       margin: 5px 15px;
       cursor: pointer;
       border-radius: 5px;
@@ -50,27 +51,31 @@ const Item = styled.div`
       font-size: 5rem;
       padding: 2rem;
       box-shadow: ${props => props.theme.bs};
-      border-image: -webkit-linear-gradient(to left, #D39D38, #ABC8C7);
-      border-image: linear-gradient(to left, #D39D38, #ABC8C7);
+      border-image: -webkit-linear-gradient(-22deg, #D39D38, #ABC8C7);
+      border-image: linear-gradient(-22deg, #D39D38, #ABC8C7);
       border-width: 2px;
       border-image-slice: 1;
     }
-    .addcart {
-      color: ${props => props.theme.mummy};
-      /* background-image: linear-gradient(-22deg, #D39D38, #ABC8C7);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent; */
+    .cartsvg {
+      /* position: absolute; */
+      top: 0;
+      left: 0;
+      opacity: 1;
+      transform: translate(0%);
+      transition: translate 0.7s, opacity 0.3s;
     }
+    .clicked {
+    .cartsvg {
+      transition: translate 0.7s, opacity 0.3s;
+      transform: translate(300%);
+      opacity: 0;
+    }
+  }
     .addlocalcart {
-      color: ${props => props.theme.mummy};
       grid-column: 1/-1;
-      /* background-image: linear-gradient(-22deg, #D39D38, #ABC8C7);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent; */
     }
     
+
     .delete {
       background: #cb2d3e; 
       background: -webkit-linear-gradient(to right, #ef473a, #cb2d3e); 

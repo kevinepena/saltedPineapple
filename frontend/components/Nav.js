@@ -46,11 +46,17 @@ class Nav extends Component {
 
                             </Link>
                             <div className="dropdown">
-                                <Link href='/'>
-                                    <a data-hover='Bracelets'>Bracelets</a>
+                                {/* <Link href='/'> */}
+                                <Link href={{ pathname: '/category', query: { name: 'earrings' } }}>
+
+                                    <a data-hover='Earrings'>Earrings</a>
                                 </Link>
-                                <Link href="/">
+                                {/* <Link href="/"> */}
+                                <Link href={{ pathname: '/category', query: { name: 'necklace' } }}>
                                     <a data-hover='Necklaces'>Necklaces</a>
+                                </Link>
+                                <Link href={{ pathname: '/category', query: { name: 'ring' } }}>
+                                    <a data-hover='Rings'>Rings</a>
                                 </Link>
                             </div>
                         </div>

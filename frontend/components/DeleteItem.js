@@ -29,6 +29,7 @@ class DeleteItem extends Component {
             mutation={DELETE_ITEM_MUTATION} 
             variables={{ id: this.props.id }}
             update={this.update}
+            // refetchQueries={ALL_ITEMS_QUERY}
             >
                 {(deleteItem, { error }) => {
                     return <button className="delete" onClick={() => {

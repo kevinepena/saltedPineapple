@@ -151,7 +151,7 @@ const StyledHeader = styled.header`
                             /* transform: translateY(100%); */
                         }
                         .shop .dropdown {
-                            transform: translateY(185%);
+                            transform: translateY(85%);
                         }
                         .me .dropdown, .shop .dropdown {
                             opacity: 1;

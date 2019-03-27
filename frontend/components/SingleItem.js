@@ -135,7 +135,7 @@ class SingleItem extends Component {
 
                     return <SingleItemStyles>
                         <Head>
-                            <title>SP | {item.title}</title>
+                            <title>Viewing - {item.title} - Shop Salted Pineapple</title>
                         </Head>
                         <Carousel images={item.images} />
                         <div>

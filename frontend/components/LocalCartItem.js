@@ -61,7 +61,7 @@ class LocalCartItem extends Component {
                                 </em>
                             </p>
                         </div>
-                        <RemoveFromLocalCart num={this.props.num} />
+                        {/* <RemoveFromLocalCart num={this.props.num} /> */}
                     </CartItemStyles>;
                 }}
             </Query>
