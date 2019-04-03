@@ -5,9 +5,6 @@ import Header from '../components/Header';
 import Meta from '../components/Meta';
 import Footer from './Footer';
 
-ReactGA.initialize('UA-137376142-2');
-ReactGA.pageview(window.location.pathname + window.location.search);
-
 const theme = {
     red: '#797C80',
     black: '#393939',
@@ -202,6 +199,10 @@ injectGlobal`
 
 class Page extends Component {
 
+    componentDidMount() {
+        ReactGA.initialize('UA-137376142-2');
+        ReactGA.pageview(window.location.pathname + window.location.search);
+    }
     render() {
 
         return (
