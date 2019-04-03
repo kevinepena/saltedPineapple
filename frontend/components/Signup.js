@@ -41,15 +41,15 @@ class Signup extends Component {
                             <Error error={error} />
                             <label htmlFor="name">
                                 Name
-                    <input type="text" name="name" placeholder="Name" value={this.state.name} onChange={this.saveToState} />
+                    <input type="text" name="name" placeholder="Name" value={this.state.name} onChange={this.saveToState} required />
                             </label>
                             <label htmlFor="email">
                                 Email
-                    <input type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.saveToState} />
+                    <input type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.saveToState} required />
                             </label>
                             <label htmlFor="password">
                                 Password
-                    <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.saveToState} />
+                    <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.saveToState} required />
                             </label>
 
                             <button type="submit">Sign Up</button>

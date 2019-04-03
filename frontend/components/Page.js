@@ -19,6 +19,7 @@ const theme = {
     egg: '#F2E9DC',
     lightgrey: '#E1E1E1',
     offWhite: '#EDEDED',
+    pink: '#F0E2DF',
     maxWidth: '1000px',
     bs: '0 12px 24px 0 rgba(0, 0, 0, 0.09)',
     ln1: 'linear-gradient(-15deg,#A4E869 0%,#FBD786 100%)',
@@ -34,9 +35,14 @@ const StyledPage = styled.div`
 `;
 
 const Inner = styled.div`
+    min-height: 95vh;
     max-width: ${props => props.theme.maxWidth};
     margin: 0 auto;
     padding: 2rem;
+
+    @media(max-width: 800px) {
+        background-color: ${props => props.theme.pink};
+    }
 
     .hero {
         font-family: 'ahoy';

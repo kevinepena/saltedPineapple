@@ -137,7 +137,7 @@ class SingleItem extends Component {
                         <Head>
                             <title>Viewing - {item.title} - Shop Salted Pineapple</title>
                         </Head>
-                        <Carousel images={item.images} />
+                        {item.images.length > 1 ? (<CarouselComp images={item.images} />) : (<img src={item.images[0]} />)}
                         <div>
 
                         <h2>{item.title}</h2>

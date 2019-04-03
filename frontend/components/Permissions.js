@@ -39,27 +39,29 @@ const ALL_USERS_QUERY = gql`
 
 const Permissions = (props) => (
     <Query query={ALL_USERS_QUERY}>
-        {({ data, loading, error }) => (
-            <div>
-                <Error error={error} />
+        {({ data, loading, error }) => {
+            return (
                 <div>
-                    <h2>Manage Users</h2>
-                    <Table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                {possiblePermissions.map(perm => <th key={perm}>{perm}</th>)}
-                                <th>👇</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.users.map(user => <UserPermissions key={user.id} user={user} />)}
-                        </tbody>
-                    </Table>
+                    <Error error={error} />
+                    <div>
+                        <h2>Manage Users</h2>
+                        <Table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    {possiblePermissions.map(perm => <th key={perm}>{perm}</th>)}
+                                    <th>👇</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {data.users.map(user => <UserPermissions key={user.id} user={user} />)}
+                            </tbody>
+                        </Table>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
         }
     </Query>
 );
