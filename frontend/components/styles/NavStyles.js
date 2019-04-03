@@ -66,8 +66,7 @@ const NavStyles = styled.ul`
       left: 50%;
       margin-top: 2rem; */
     }
-    &:hover,
-    &:focus {
+    &:hover {
       outline: none;
       &:before {
         max-width: 100%;
@@ -149,6 +148,9 @@ const NavStyles = styled.ul`
       margin: 0 auto;
     }
     .searchbar, .search {
+      display: none;
+    }
+    .shoplink {
       display: none;
     }
   }

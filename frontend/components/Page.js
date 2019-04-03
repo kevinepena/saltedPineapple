@@ -1,8 +1,12 @@
 import styled, { ThemeProvider, injectGlobal } from 'styled-components';
 import React, { Component } from 'react';
+import ReactGA from 'react-ga';
 import Header from '../components/Header';
 import Meta from '../components/Meta';
 import Footer from './Footer';
+
+ReactGA.initialize('UA-137376142-2');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 const theme = {
     red: '#797C80',

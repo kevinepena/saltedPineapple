@@ -44,7 +44,8 @@ export default class Items extends Component {
 
 
                     <ItemStyles>
-                        <CarouselComp images={item.images} />
+                        {item.images.length > 1 ? (<CarouselComp images={item.images} />) : (<img src={item.images[0]} />)}
+
 
                         <Title>
                             <Link href={{
